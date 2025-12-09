@@ -1,0 +1,150 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService: ~
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Type\ClassificationStoreDataTypeService: ~
+    OpenDxp\Bundle\DataImporterBundle\Mapping\MappingConfigurationFactory: ~
+    OpenDxp\Bundle\DataImporterBundle\Mapping\MappingConfiguration: ~
+
+    # -------------------
+    # simple operators
+    # -------------------
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\Trim:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "trim" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\StringReplace:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "stringReplace" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\Explode:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "explode" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\StaticText:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "staticText" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\ConditionalConversion:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "conditionalConversion" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\ReduceArrayKeyValuePairs:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "reduceArrayKeyValuePairs" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\FlattenArray:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "flattenArray" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\Combine:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "combine" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\HtmlDecode:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "htmlDecode" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\ImportAsset:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "importAsset" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\LoadAsset:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "loadAsset" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple\LoadDataObject:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "loadDataObject" }
+
+    # -------------------
+    # factory operators
+    # -------------------
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\Numeric:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "numeric" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\QuantityValue:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "quantityValue" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\QuantityValueArray:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "quantityValueArray" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\InputQuantityValue:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "inputQuantityValue" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\InputQuantityValueArray:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "inputQuantityValueArray" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\Boolean:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "boolean" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\Date:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "date" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\Gallery:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "gallery" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\ImageAdvanced:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "imageAdvanced" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsArray:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asArray" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsGeopoint:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asGeopoint" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsGeobounds:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asGeobounds" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsGeopolygon:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asGeopolygon" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsGeopolyline:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asGeopolyline" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsColor:
+         tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asColor" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory\AsCountries:
+        tags:
+            - { name: "opendxp.datahub.data_importer.operator", type: "asCountries" }
+
+
+    # ---------------------
+    # data target services
+    # ---------------------
+    OpenDxp\Bundle\DataImporterBundle\Mapping\DataTarget\Direct:
+        tags:
+            - { name: "opendxp.datahub.data_importer.data_target", type: "direct" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\DataTarget\ManyToManyRelation:
+        tags:
+            - { name: "opendxp.datahub.data_importer.data_target", type: "manyToManyRelation" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\DataTarget\Classificationstore:
+        tags:
+            - { name: "opendxp.datahub.data_importer.data_target", type: "classificationstore" }
+
+    OpenDxp\Bundle\DataImporterBundle\Mapping\DataTarget\ClassificationstoreBatch:
+        tags:
+            - { name: "opendxp.datahub.data_importer.data_target", type: "classificationstoreBatch" }

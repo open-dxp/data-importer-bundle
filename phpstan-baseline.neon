@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Class OpenDxp\\\\Bundle\\\\ApplicationLoggerBundle\\\\Installer not found.$#"
+			reportUnmatched: false
+			count: 1
+			path: src/Installer.php
+
+		-
+			message: "#^Instantiated class OpenDxp\\\\Bundle\\\\ApplicationLoggerBundle\\\\OpenDxpApplicationLoggerBundle not found.$#"
+			reportUnmatched: false
+			count: 1
+			path: src/OpenDxpDataImporterBundle.php
+
+		-
+			message: "#^Class OpenDxp\\\\Bundle\\\\ApplicationLoggerBundle\\\\OpenDxpApplicationLoggerBundle not found.$#"
+			reportUnmatched: false
+			count: 1
+			path: src/OpenDxpDataImporterBundle.php
