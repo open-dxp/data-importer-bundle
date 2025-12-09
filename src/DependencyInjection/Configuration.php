@@ -15,6 +15,7 @@
 
 namespace OpenDxp\Bundle\DataImporterBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -31,8 +32,10 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('opendxp_data_importer');
+        /** @var ArrayNodeDefinition $rootNode */
+        $rootNode = $treeBuilder->getRootNode();
 
-        $treeBuilder->getRootNode()->children()
+        $rootNode->children()
             ->arrayNode('messenger_queue_processing')
                 ->addDefaultsIfNotSet()
                 ->info('Configure import queue processing via symfony messenger')
