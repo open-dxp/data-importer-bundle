@@ -20,6 +20,8 @@ use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportProcessingService;
 use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 use OpenDxp\Console\AbstractCommand;
+use OpenDxp\Console\Style\OpenDxpStyle;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -50,7 +52,7 @@ class SequentialProcessQueueCommand extends AbstractCommand
         $this->queueService = $queueService;
     }
 
-    public function configure()
+    public function configure(): void
     {
         $this
             ->setName('datahub:data-importer:process-queue-sequential')
@@ -58,22 +60,15 @@ class SequentialProcessQueueCommand extends AbstractCommand
         ;
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     *
-     * @return int|void
-     *
-     * @throws Exception
-     * @throws \Doctrine\DBAL\Exception
-     * @throws InvalidConfigurationException
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->lock()) {
             $this->writeError('The command is already running.');
-            exit(1);
+
+            return Command::FAILURE;
         }
+
+        $io = new OpenDxpStyle($input, $output);
 
         try {
             $itemIds = $this->queueService->getAllQueueEntryIds(ImportProcessingService::EXECUTION_TYPE_SEQUENTIAL);
@@ -100,11 +95,13 @@ class SequentialProcessQueueCommand extends AbstractCommand
 
             $output->writeln("\n\nProcessed {$itemCount} items.");
 
-            return 0;
-        } catch (\Throwable $t) {
+            return Command::SUCCESS;
+        } catch (\Throwable $e) {
             $this->release();
-            throw $t;
+            $io->error($e->getMessage());
         }
+
+        return Command::FAILURE;
     }
 
     /**
