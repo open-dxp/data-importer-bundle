@@ -16,7 +16,6 @@
 namespace OpenDxp\Bundle\DataImporterBundle\Resolver\Load;
 
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
-use OpenDxp\Model\DataObject\Service;
 use OpenDxp\Model\Element\ElementInterface;
 
 class IdStrategy extends AbstractLoad
@@ -36,7 +35,7 @@ class IdStrategy extends AbstractLoad
 
     public function loadFullIdentifierList(): array
     {
-        $sql = sprintf('SELECT `%s` FROM object_%s', Service::getVersionDependentDatabaseColumnName('o_id'), $this->dataObjectClassId);
+        $sql = sprintf('SELECT `id` FROM object_%s', $this->dataObjectClassId);
 
         return $this->db->fetchFirstColumn($sql);
     }

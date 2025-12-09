@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('opendxp_data_importer');
 
-        $treeBuilder->getRootNode()->children() // @phpstan-ignore-line
+        $treeBuilder->getRootNode()->children()
             ->arrayNode('messenger_queue_processing')
                 ->addDefaultsIfNotSet()
                 ->info('Configure import queue processing via symfony messenger')
