@@ -14,8 +14,8 @@
 opendxp.registerNS('opendxp.plugin.opendxpDataImporterBundle.configuration.components.logTab');
 
 /**
- * BC-layer for pimcore 10 and 11. Since the applicationLogger was moved to its own bundle in Pimcore 11, we have to check the namespaces here.
- * TODO: Remove this layer as soon as Pimcore 10 isn´t supported anymore.
+ * BC-layer for opendxp 1. Since the applicationLogger has its own bundle, we have to check the namespaces here.
+ * TODO: Remove this layer as soon as OpenDXP 1 isn´t supported anymore.
  */
 
 if(opendxp.log) {

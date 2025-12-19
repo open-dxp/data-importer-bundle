@@ -1,7 +1,7 @@
 imports:
     - { resource: ../../config.yaml }
 
-# this cache is used during tests when setting up pimcore
+# this cache is used during tests when setting up opendxp
 framework:
     cache:
         pools:

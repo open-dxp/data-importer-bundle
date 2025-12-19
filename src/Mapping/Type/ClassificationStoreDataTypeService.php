@@ -81,7 +81,7 @@ class ClassificationStoreDataTypeService
             if (!empty($opendxpTypes)) {
 //                $conditionParts[] = '';
                 $list->addConditionParam(sprintf('type IN (%s)', "'" . implode("','", $opendxpTypes) . "'"));
-//                $list->addConditionParam('type IN (?)', $pimcoreTypes);
+//                $list->addConditionParam('type IN (?)', $opendxpTypes);
             }
         }
 

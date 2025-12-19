@@ -35,16 +35,10 @@ class Installer extends SettingsStoreAwareInstaller
      */
     public function install(): void
     {
-        /**
-         * The application logger can be deactivated from Pimcore 11 on. But it is necessary for the data-importer,
-         * so we have to make sure that it is activated & installed.
-         */
-        if (\OpenDxp\Version::getMajorVersion() >= 11) {
-            $appLoggerInstaller = \OpenDxp::getContainer()->get(\OpenDxp\Bundle\ApplicationLoggerBundle\Installer::class);
+        $appLoggerInstaller = \OpenDxp::getContainer()->get(\OpenDxp\Bundle\ApplicationLoggerBundle\Installer::class);
 
-            if (!$appLoggerInstaller->isInstalled()) {
-                $appLoggerInstaller->install();
-            }
+        if (!$appLoggerInstaller->isInstalled()) {
+            $appLoggerInstaller->install();
         }
 
         // create backend permission

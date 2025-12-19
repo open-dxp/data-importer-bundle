@@ -64,7 +64,7 @@ opendxp.plugin.opendxpDataImporterBundle.configuration.components.resolver.locat
                 items: [
                     // {
                     //     xtype: 'textfield',
-                    //     fieldLabel: t('plugin_pimcore_datahub_data_importer_configpanel_path'),
+                    //     fieldLabel: t('plugin_opendxp_datahub_data_importer_configpanel_path'),
                     //     name: this.dataNamePrefix + 'path',
                     //     value: this.data.path || '/'
                     // }
