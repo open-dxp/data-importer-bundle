@@ -17,7 +17,7 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     throw new \Exception('Unknown configuration! OpenDxp project root not found, please set env variable OPENDXP_PROJECT_ROOT.');
 }
 
-$opendxpTestsSupportDir = ($opendxpTestDir . '/Support');
+$opendxpTestsSupportDir = ($opendxpTestDir . '/_support');
 
 include ($opendxpTestsSupportDir . '/Util/Autoloader.php');
 
@@ -25,12 +25,11 @@ include ($opendxpTestsSupportDir . '/Util/Autoloader.php');
 \OpenDxp\Bootstrap::bootstrap();
 
 //error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_WARNING);
+Autoloader::addNamespace('OpenDxp\Tests', $opendxpTestsSupportDir); // BC layer
 Autoloader::addNamespace('OpenDxp\Tests\Support', $opendxpTestsSupportDir);
 Autoloader::addNamespace('OpenDxp\Model\DataObject', OPENDXP_CLASS_DIRECTORY . '/DataObject');
 Autoloader::addNamespace('OpenDxp\Bundle\DataImporterBundle\Tests', __DIR__);
 Autoloader::addNamespace('OpenDxp\Bundle\DataImporterBundle\Tests', __DIR__ . '/_support');
-
-echo __DIR__ . '/_support';
 
 if (!defined('TESTS_PATH')) {
     define('TESTS_PATH', __DIR__);
