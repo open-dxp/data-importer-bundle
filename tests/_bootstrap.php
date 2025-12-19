@@ -17,7 +17,15 @@ if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
     throw new \Exception('Unknown configuration! OpenDxp project root not found, please set env variable OPENDXP_PROJECT_ROOT.');
 }
 
-$opendxpTestsSupportDir = ($opendxpTestDir . '/_support');
+$_SERVER['APP_ENV'] = 'test';
+$_SERVER['APP_DEBUG'] = true;
+
+$opendxpTestsSupportDir = $opendxpTestDir . '/Support';
+
+// BC layer
+if (!is_dir($opendxpTestsSupportDir)) {
+    $opendxpTestsSupportDir = $opendxpTestDir . '/_support';
+}
 
 include ($opendxpTestsSupportDir . '/Util/Autoloader.php');
 
