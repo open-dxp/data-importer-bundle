@@ -1,6 +1,6 @@
 # Installation
 ## Required Bundles
-This bundle depends on OpenDXP [Datahub bundle](https://github.com/pimcore/data-hub). This needs to be installed first.
+This bundle depends on OpenDXP [Datahub bundle](https://github.com/open-dxp/data-hub-bundle). This needs to be installed first.
 
 ## Installation Process
 ### For OpenDXP >= 10.5
