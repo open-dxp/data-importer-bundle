@@ -1,23 +1,27 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Command;
 
+use DOMDocument;
+use Exception;
+use OpenDxp;
 use OpenDxp\Console\AbstractCommand;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject\Car;
+use SimpleXMLElement;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -37,12 +41,7 @@ class DummyDataCommand extends AbstractCommand
     }
 
     /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     *
-     * @return int
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -55,7 +54,7 @@ class DummyDataCommand extends AbstractCommand
             'International',
             '1950',
             '1960',
-            '1970'
+            '1970',
         ];
         $tags = array_flip($tags);
 
@@ -116,17 +115,17 @@ class DummyDataCommand extends AbstractCommand
                 'attributes' => [
                     [
                         'key' => '1-6',
-                        'value' => $faker->name()
+                        'value' => $faker->name(),
                     ],
                     [
                         'key' => '2-4',
-                        'value' => $faker->text(5)
-                    ]
-                ]
+                        'value' => $faker->text(5),
+                    ],
+                ],
             ];
 
             if ($i % 100 === 0) {
-                \OpenDxp::collectGarbage();
+                OpenDxp::collectGarbage();
             }
         }
 
@@ -142,15 +141,18 @@ class DummyDataCommand extends AbstractCommand
         switch ($format) {
             case 'csv':
                 $this->writeCsv($filename, $data);
+
                 break;
             case 'json':
                 $this->writeJson($filename, $data);
+
                 break;
             case 'xml':
                 $this->writeXml($filename, $data);
+
                 break;
             default:
-                throw new \Exception('Invalid format: ' . $format);
+                throw new Exception('Invalid format: ' . $format);
         }
 
         return 0;
@@ -181,10 +183,10 @@ class DummyDataCommand extends AbstractCommand
     {
         array_shift($data);
 
-        $xml = new \SimpleXMLElement('<root/>');
+        $xml = new SimpleXMLElement('<root/>');
         $this->arrayToXml($data, $xml, 'item');
 
-        $dom = new \DOMDocument('1.0');
+        $dom = new DOMDocument('1.0');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML($xml->asXML());
@@ -193,7 +195,7 @@ class DummyDataCommand extends AbstractCommand
 
     /**
      * @param array $data
-     * @param \SimpleXMLElement $xml_data
+     * @param SimpleXMLElement $xml_data
      * @param string $firstLevelKey
      *
      * @return void

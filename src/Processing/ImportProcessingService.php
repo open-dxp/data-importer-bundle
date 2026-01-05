@@ -1,20 +1,21 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Processing;
 
+use Exception;
 use OpenDxp\Bundle\ApplicationLoggerBundle\ApplicationLogger;
 use OpenDxp\Bundle\ApplicationLoggerBundle\FileObject;
 use OpenDxp\Bundle\DataImporterBundle\Cleanup\CleanupStrategyFactory;
@@ -34,16 +35,20 @@ use OpenDxp\Bundle\DataImporterBundle\Settings\ConfigurationPreparationService;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Tool\TmpStore;
 use Psr\Log\LoggerAwareTrait;
+use ReflectionClass;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Throwable;
 
 class ImportProcessingService
 {
     use LoggerAwareTrait;
 
     const JOB_TYPE_PROCESS = 'process';
+
     const JOB_TYPE_CLEANUP = 'cleanup';
 
     const EXECUTION_TYPE_SEQUENTIAL = 'sequential';
+
     const EXECUTION_TYPE_PARALLEL = 'parallel';
 
     const INFO_ENTRY_ID_PREFIX = 'datahub_dataimporter_';
@@ -95,13 +100,6 @@ class ImportProcessingService
 
     /**
      * ImportProcessingService constructor.
-     *
-     * @param QueueService $queueService
-     * @param MappingConfigurationFactory $mappingConfigurationFactory
-     * @param ResolverFactory $resolverFactory
-     * @param CleanupStrategyFactory $cleanupStrategyFactory
-     * @param ApplicationLogger $applicationLogger
-     * @param EventDispatcherInterface $eventDispatcher
      */
     public function __construct(QueueService $queueService, MappingConfigurationFactory $mappingConfigurationFactory, ResolverFactory $resolverFactory, CleanupStrategyFactory $cleanupStrategyFactory, ApplicationLogger $applicationLogger, EventDispatcherInterface $eventDispatcher)
     {
@@ -119,6 +117,7 @@ class ImportProcessingService
     {
         $configName = null;
         $queueItem = null;
+
         try {
             //get queue item
             $queueItem = $this->queueService->getQueueEntryById($id);
@@ -151,13 +150,13 @@ class ImportProcessingService
             } else {
                 throw new InvalidConfigurationException('Unknown job type ' . $queueItem['jobType']);
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $component = $configName ? OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $configName : null;
             $fileObject = $queueItem ? new FileObject(json_encode($queueItem['data'])) : null;
 
             $this->applicationLogger->error($e->getMessage() . $e->getMessage(), [
                 'component' => $component,
-                'fileObject' => $fileObject
+                'fileObject' => $fileObject,
             ]);
         } finally {
             $this->queueService->markQueueEntryAsProcessed($id);
@@ -175,15 +174,13 @@ class ImportProcessingService
     }
 
     /**
-     * @param string $configName
-     * @param array $importDataRow
-     * @param Resolver $resolver
      * @param MappingConfiguration[] $mapping
      */
     protected function processElement(string $configName, array $importDataRow, Resolver $resolver, array $mapping, int $userOwner)
     {
         $element = null;
         $importDataRowString = implode(', ', $this->flattenArray($importDataRow));
+
         try {
             //resolve data object
             $createNew = true;
@@ -196,7 +193,7 @@ class ImportProcessingService
                 $this->applicationLogger->info("⭢ Processing DataRow {$importDataRowString}", [
                     'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $configName,
                     null,
-                    'relatedObject' => $element
+                    'relatedObject' => $element,
                 ]);
 
                 foreach ($mapping as $mappingConfiguration) {
@@ -241,18 +238,18 @@ class ImportProcessingService
                 $this->applicationLogger->info($message, [
                     'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $configName,
                     'fileObject' => new FileObject(json_encode($importDataRow)),
-                    'relatedObject' => $element
+                    'relatedObject' => $element,
                 ]);
             } else {
-                $reflection = new \ReflectionClass($resolver->getLoadingStrategy());
+                $reflection = new ReflectionClass($resolver->getLoadingStrategy());
                 $message = "No match by {$reflection->getShortName()} with 'Do not create' location strategy";
                 $this->logger->info($message);
                 $this->applicationLogger->info($message, [
                     'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $configName,
-                    'fileObject' => new FileObject(json_encode($importDataRow))
+                    'fileObject' => new FileObject(json_encode($importDataRow)),
                 ]);
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $message = "Error processing element: {$importDataRowString}";
             $this->logger->error($message . $e);
 
@@ -279,10 +276,10 @@ class ImportProcessingService
                     $this->logger->info($message);
                     $this->applicationLogger->info($message, [
                         'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $configName,
-                        'relatedObject' => $element
+                        'relatedObject' => $element,
                     ]);
                 }
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $message = 'Error cleaning up element: ';
                 $this->logger->error($message . $e);
                 $this->applicationLogger->error($message . $e->getMessage(), [
@@ -381,13 +378,10 @@ class ImportProcessingService
             'isRunning' => $currentQueueItems > 0,
             'totalItems' => $totalItems,
             'processedItems' => $processedItems,
-            'progress' => $progress
+            'progress' => $progress,
         ];
     }
 
-    /**
-     * @param string $configName
-     */
     public function cancelImportAndCleanupQueue(string $configName): void
     {
         $infoEntryId = self::INFO_ENTRY_ID_PREFIX . $configName;

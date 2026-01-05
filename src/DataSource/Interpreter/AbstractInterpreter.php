@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\DataSource\Interpreter;
@@ -87,10 +87,6 @@ abstract class AbstractInterpreter implements InterpreterInterface
 
     /**
      * AbstractInterpreter constructor.
-     *
-     * @param DeltaChecker $deltaChecker
-     * @param QueueService $queueService
-     * @param ApplicationLogger $applicationLogger
      */
     public function __construct(DeltaChecker $deltaChecker, QueueService $queueService, ApplicationLogger $applicationLogger)
     {
@@ -184,14 +180,14 @@ abstract class AbstractInterpreter implements InterpreterInterface
             $archiveLogMessage = 'Uploaded file not valid.';
             $message = 'Uploaded file not valid, not creating any queue items and doing any cleanup."';
             $this->applicationLogger->error($message, [
-                'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $this->configName
+                'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $this->configName,
             ]);
         }
 
         if ($this->doArchiveImportFile) {
             $this->applicationLogger->info($archiveLogMessage, [
                 'component' => OpenDxpDataImporterBundle::LOGGER_COMPONENT_PREFIX . $this->configName,
-                'fileObject' => new FileObject(file_get_contents($path))
+                'fileObject' => new FileObject(file_get_contents($path)),
             ]);
         }
 

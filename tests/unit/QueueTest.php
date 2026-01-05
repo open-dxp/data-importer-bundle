@@ -1,11 +1,24 @@
 <?php
-namespace OpenDxp\Bundle\DataImporterBundle\Tests;
 
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Bundle\DataImporterBundle\Tests;
 
 use Codeception\Test\Unit;
 use OpenDxp\Bundle\DataHubSimpleRestBundle\Tests\ServiceTester;
-use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportProcessingService;
+use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 
 class QueueTest extends Unit
 {
@@ -25,7 +38,7 @@ class QueueTest extends Unit
         $count = $queueService->getQueueItemCount('tmp');
         $this->assertEquals($count, 1, 'Queue Item count check');
 
-        $entryIds = $queueService->getAllQueueEntryIds(ImportProcessingService::EXECUTION_TYPE_SEQUENTIAL,);
+        $entryIds = $queueService->getAllQueueEntryIds(ImportProcessingService::EXECUTION_TYPE_SEQUENTIAL, );
         $this->assertCount(1, $entryIds, 'Queue Item count check');
 
         $entry = $queueService->getQueueEntryById($entryIds[0]);
@@ -33,11 +46,9 @@ class QueueTest extends Unit
         $this->assertEquals($entry['data'], 'some data', 'Queue Item id check');
         $this->assertEquals($entry['jobType'], ImportProcessingService::JOB_TYPE_PROCESS, 'Queue Item id check');
 
-
         $queueService->markQueueEntryAsProcessed($entryIds[0]);
 
         $count = $queueService->getQueueItemCount('tmp');
         $this->assertEquals(0, $count, 'Queue Item count re-check');
     }
-
 }

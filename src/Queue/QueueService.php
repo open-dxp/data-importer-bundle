@@ -1,21 +1,22 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Queue;
 
 use Carbon\Carbon;
+use Closure;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Exception\TableNotFoundException;
@@ -44,16 +45,12 @@ class QueueService
     }
 
     /**
-     * @param string $configName
-     * @param string $executionType
-     * @param string $jobType
-     * @param string $data
-     *
      * @throws Exception
      */
     public function addItemToQueue(string $configName, string $executionType, string $jobType, string $data, int $userOwner = 0): void
     {
         $db = $this->getDb();
+
         try {
             $db->executeQuery(sprintf(
                 'INSERT INTO %s (%s) VALUES (%s) ON DUPLICATE KEY UPDATE timestamp = VALUES(timestamp)',
@@ -65,7 +62,7 @@ class QueueService
                     $db->quote($data),
                     $db->quote($executionType),
                     $db->quote($jobType),
-                    $userOwner
+                    $userOwner,
                 ])
             ));
         } catch (TableNotFoundException $exception) {
@@ -76,13 +73,11 @@ class QueueService
     }
 
     /**
-     * @param \Closure|null $callable
-     *
      * @return mixed|null
      *
      * @throws Exception
      */
-    protected function createQueueTableIfNotExisting(?\Closure $callable = null)
+    protected function createQueueTableIfNotExisting(?Closure $callable = null)
     {
         $this->getDb()->executeQuery(sprintf('CREATE TABLE IF NOT EXISTS %s (
             id bigint AUTO_INCREMENT,
@@ -110,12 +105,6 @@ class QueueService
     }
 
     /**
-     * @param string $executionType
-     * @param int $limit
-     * @param bool $dispatch
-     *
-     * @return array
-     *
      * @throws \Doctrine\DBAL\Driver\Exception|Exception
      */
     public function getAllQueueEntryIds(string $executionType, int $limit = 100000, bool $dispatch = false): array
@@ -148,10 +137,6 @@ class QueueService
     }
 
     /**
-     * @param int $id
-     *
-     * @return array
-     *
      * @throws Exception
      */
     public function getQueueEntryById(int $id): array
@@ -175,7 +160,7 @@ class QueueService
         try {
             return $this->getDb()->fetchOne(
                 sprintf('SELECT count(*) as count FROM %s WHERE configName = ?', self::QUEUE_TABLE_NAME),
-                    [$configName]
+                [$configName]
             ) ?? 0;
         } catch (TableNotFoundException $exception) {
             return $this->createQueueTableIfNotExisting(function () use ($configName) {
@@ -202,8 +187,6 @@ class QueueService
     }
 
     /**
-     * @param string $configName
-     *
      * @throws Exception
      */
     public function cleanupQueueItems(string $configName): void

@@ -1,20 +1,21 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Controller;
 
+use const JSON_ERROR_NONE;
 use Cron\CronExpression;
 use Exception;
 use League\Flysystem\FilesystemOperator;
@@ -55,8 +56,6 @@ class ConfigDataObjectController extends UserAwareController
 
     /**
      * ConfigDataObjectController constructor.
-     *
-     * @param PreviewService $previewService
      */
     public function __construct(PreviewService $previewService)
     {
@@ -103,10 +102,6 @@ class ConfigDataObjectController extends UserAwareController
     }
 
     /**
-     * @param string $configName
-     * @param array $config
-     * @param InterpreterFactory $interpreterFactory
-     *
      * @return array
      */
     protected function loadAvailableColumnHeaders(
@@ -123,7 +118,7 @@ class ConfigDataObjectController extends UserAwareController
 
                 // Validate if the column headers are valid JSON. Otherwise take care of the preview file to be deleted.
                 if (!$this->isValidJson($columnHeaders)) {
-                    throw new \Exception('Invalid column headers.');
+                    throw new Exception('Invalid column headers.');
                 }
 
                 return $columnHeaders;
@@ -139,7 +134,7 @@ class ConfigDataObjectController extends UserAwareController
     {
         json_encode($array);
 
-        return json_last_error() === \JSON_ERROR_NONE;
+        return json_last_error() === JSON_ERROR_NONE;
     }
 
     /**
@@ -162,7 +157,7 @@ class ConfigDataObjectController extends UserAwareController
                 'configuration' => $config,
                 'userPermissions' => $config['userPermissions'],
                 'modificationDate' => Dao::getConfigModificationDate(),
-                'columnHeaders' => $this->loadAvailableColumnHeaders($name, $config, $interpreterFactory)
+                'columnHeaders' => $this->loadAvailableColumnHeaders($name, $config, $interpreterFactory),
             ]
         );
     }
@@ -292,7 +287,8 @@ class ConfigDataObjectController extends UserAwareController
                     $preview = $dataPreview->getDataPreview();
                     if (!$this->isValidJson($preview)) {
                         unlink($previewFilePath);
-                        throw new \Exception('Invalid data preview. Deleted preview data.');
+
+                        throw new Exception('Invalid data preview. Deleted preview data.');
                     }
                     $dataPreviewData = $preview;
                 } else {
@@ -308,7 +304,7 @@ class ConfigDataObjectController extends UserAwareController
             'dataPreview' => $dataPreviewData,
             'previewRecordIndex' => $dataPreview ? $dataPreview->getRecordNumber() : 0,
             'hasData' => $hasData,
-            'errorMessage' => $errorMessage
+            'errorMessage' => $errorMessage,
         ]);
     }
 
@@ -326,7 +322,7 @@ class ConfigDataObjectController extends UserAwareController
         $config = $configurationPreparationService->prepareConfiguration($configName, $currentConfig);
 
         return new JsonResponse([
-            'columnHeaders' => $this->loadAvailableColumnHeaders($configName, $config, $interpreterFactory)
+            'columnHeaders' => $this->loadAvailableColumnHeaders($configName, $config, $interpreterFactory),
         ]);
     }
 
@@ -372,7 +368,7 @@ class ConfigDataObjectController extends UserAwareController
 
         return new JsonResponse([
             'transformationResultPreviews' => $transformationResults,
-            'errorMessage' => $errorMessage
+            'errorMessage' => $errorMessage,
         ]);
     }
 
@@ -417,7 +413,7 @@ class ConfigDataObjectController extends UserAwareController
         }
 
         return new JsonResponse([
-            'attributes' => $transformationDataTypeService->getOpenDxpDataTypes($classId, $transformationTargetType, $includeSystemRead, $includeSystemWrite, $loadAdvancedRelations)
+            'attributes' => $transformationDataTypeService->getOpenDxpDataTypes($classId, $transformationTargetType, $includeSystemRead, $includeSystemWrite, $loadAdvancedRelations),
         ]);
     }
 
@@ -430,7 +426,7 @@ class ConfigDataObjectController extends UserAwareController
         }
 
         return new JsonResponse([
-            'attributes' => $transformationDataTypeService->getClassificationStoreAttributes($classId)
+            'attributes' => $transformationDataTypeService->getClassificationStoreAttributes($classId),
         ]);
     }
 
@@ -476,7 +472,7 @@ class ConfigDataObjectController extends UserAwareController
         return new JsonResponse([
             'success' => true,
             'data' => $data,
-            'total' => $list->getTotalCount()
+            'total' => $list->getTotalCount(),
         ]);
     }
 
@@ -496,14 +492,14 @@ class ConfigDataObjectController extends UserAwareController
                 if ($group) {
                     return new JsonResponse([
                         'groupName' => $group->getName(),
-                        'keyName' => $keyGroupRelation->getName()
+                        'keyName' => $keyGroupRelation->getName(),
                     ]);
                 }
             }
         }
 
         return new JsonResponse([
-            'keyId' => $keyId
+            'keyId' => $keyId,
         ]);
     }
 
@@ -514,7 +510,7 @@ class ConfigDataObjectController extends UserAwareController
         $success = $importPreparationService->prepareImport($configName, true);
 
         return new JsonResponse([
-            'success' => $success
+            'success' => $success,
         ]);
     }
 
@@ -543,7 +539,7 @@ class ConfigDataObjectController extends UserAwareController
 
         return new JsonResponse([
             'success' => $success,
-            'message' => $message
+            'message' => $message,
         ]);
     }
 
@@ -554,7 +550,7 @@ class ConfigDataObjectController extends UserAwareController
         $importProcessingService->cancelImportAndCleanupQueue($configName);
 
         return new JsonResponse([
-            'success' => true
+            'success' => true,
         ]);
     }
 
@@ -589,10 +585,6 @@ class ConfigDataObjectController extends UserAwareController
     }
 
     /**
-     * @param string $configName
-     *
-     * @return string
-     *
      * @throws Exception
      */
     protected function getImportFilePath(string $configName): string

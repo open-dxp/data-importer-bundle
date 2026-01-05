@@ -1,22 +1,21 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Command;
 
-use Doctrine\DBAL\Driver\Exception;
-use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
+use OpenDxp;
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportProcessingService;
 use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 use OpenDxp\Console\AbstractCommand;
@@ -27,6 +26,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Lock\LockFactory;
 use Symfony\Component\Lock\LockInterface;
+use Throwable;
 
 class SequentialProcessQueueCommand extends AbstractCommand
 {
@@ -85,7 +85,7 @@ class SequentialProcessQueueCommand extends AbstractCommand
 
                 // call the garbage collector to avoid too many connections & memory issue
                 if (($i + 1) % 200 === 0) {
-                    \OpenDxp::collectGarbage();
+                    OpenDxp::collectGarbage();
                 }
             }
 
@@ -96,7 +96,7 @@ class SequentialProcessQueueCommand extends AbstractCommand
             $output->writeln("\n\nProcessed {$itemCount} items.");
 
             return Command::SUCCESS;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $this->release();
             $io->error($e->getMessage());
         }
@@ -106,12 +106,10 @@ class SequentialProcessQueueCommand extends AbstractCommand
 
     /**
      * Locks the command.
-     *
-     * @return bool
      */
     private function lock(): bool
     {
-        $this->lock = \OpenDxp::getContainer()->get(LockFactory::class)->createLock($this->getName(), 86400);
+        $this->lock = OpenDxp::getContainer()->get(LockFactory::class)->createLock($this->getName(), 86400);
 
         if (!$this->lock->acquire(false)) {
             $this->lock = null;

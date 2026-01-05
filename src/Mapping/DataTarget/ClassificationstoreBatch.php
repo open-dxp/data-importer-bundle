@@ -1,20 +1,21 @@
 <?php
 
 /**
- * Pimcore
+ * OpenDXP
  *
- * This source file is available under two different licenses:
- * - GNU General Public License version 3 (GPLv3)
- * - Pimcore Commercial License (PCL)
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
  * Full copyright and license information is available in
  * LICENSE.md which is distributed with this source code.
  *
- *  @copyright  Copyright (c) Pimcore GmbH (http://www.pimcore.org)
- *  @license    http://www.pimcore.org/license     GPLv3 and PCL
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.io)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
 namespace OpenDxp\Bundle\DataImporterBundle\Mapping\DataTarget;
 
+use Exception;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidInputException;
 use OpenDxp\Model\Element\ElementInterface;
@@ -42,7 +43,6 @@ class ClassificationstoreBatch implements DataTargetInterface
     }
 
     /**
-     * @param ElementInterface $element
      * @param mixed $data
      *
      * @return void
@@ -69,11 +69,11 @@ class ClassificationstoreBatch implements DataTargetInterface
                     }
 
                     if (!is_numeric($keyParts[0])) {
-                        throw new \Exception('groupId not valid');
+                        throw new Exception('groupId not valid');
                     }
 
                     if (!is_numeric($keyParts[1])) {
-                        throw new \Exception('keyId not valid');
+                        throw new Exception('keyId not valid');
                     }
 
                     $classificationStore->setLocalizedKeyValue((int)$keyParts[0], (int)$keyParts[1], $value, $this->language);
