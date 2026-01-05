@@ -18,9 +18,6 @@ sources and adjusting it to OpenDXP Data Objects based on a configured mapping w
 - Imports execution directly in OpenDXP Datahub or on a regular base via cron definitions. 
 - Import status updates and extensive logging information. 
 
-![Mapping](./doc/img/mapping.png)
-*Mapping and preview of data*
-
 ## Documentation Overview
 - [Installation](./doc/01_Installation.md)
 - [Configuration](./doc/03_Configuration/README.md)
