@@ -48,7 +48,7 @@ interface LoadStrategyInterface extends SettingsAwareInterface
     public function extractIdentifierFromData(array $inputData);
 
     /**
-     * Load all in Pimcore existing identifiers (e.g. all data object IDs of certain data object class)
+     * Load all in OpenDXP existing identifiers (e.g. all data object IDs of certain data object class)
      *
      * @return array
      */

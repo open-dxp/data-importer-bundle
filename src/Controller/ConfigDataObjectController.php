@@ -41,7 +41,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/admin/pimcoredataimporter/dataobject/config')]
+#[Route('/admin/opendxpdataimporter/dataobject/config')]
 class ConfigDataObjectController extends UserAwareController
 {
     use JsonHelperTrait;

@@ -29,7 +29,7 @@ class ClassificationStoreDataTypeService
         $this->transformationDataTypeService = $transformationDataTypeService;
     }
 
-    public function listClassificationStoreKeyList(string $classId, string $fieldName, string $transformationResultType, string $orderKey = 'name', string $order = 'ASC', int $start = 0, int $limit = 15, string $searchString = null, string $filterString = null): DataObject\Classificationstore\KeyGroupRelation\Listing
+    public function listClassificationStoreKeyList(string $classId, string $fieldName, string $transformationResultType, string $orderKey = 'name', string $order = 'ASC', int $start = 0, int $limit = 15, ?string $searchString = null, ?string $filterString = null): DataObject\Classificationstore\KeyGroupRelation\Listing
     {
         $classDefinition = DataObject\ClassDefinition::getById($classId);
         $field = $classDefinition->getFieldDefinition($fieldName);
@@ -81,7 +81,7 @@ class ClassificationStoreDataTypeService
             if (!empty($opendxpTypes)) {
 //                $conditionParts[] = '';
                 $list->addConditionParam(sprintf('type IN (%s)', "'" . implode("','", $opendxpTypes) . "'"));
-//                $list->addConditionParam('type IN (?)', $pimcoreTypes);
+//                $list->addConditionParam('type IN (?)', $opendxpTypes);
             }
         }
 

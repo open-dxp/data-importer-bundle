@@ -323,7 +323,7 @@ opendxp.plugin.opendxpDataImporterBundle.configuration.components.importSettings
             ]
         });
         // panel.updateLayout();
-        // pimcore.layout.refresh();
+        // opendxp.layout.refresh();
         return panel;
     },
 
