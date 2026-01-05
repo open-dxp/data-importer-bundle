@@ -17,6 +17,7 @@ namespace OpenDxp\Bundle\DataImporterBundle;
 
 use League\FlysystemBundle\FlysystemBundle;
 use OpenDxp\Bundle\AdminBundle\OpenDxpAdminBundle;
+use OpenDxp\Bundle\ApplicationLoggerBundle\OpenDxpApplicationLoggerBundle;
 use OpenDxp\Bundle\DataHubBundle\OpenDxpDataHubBundle;
 use OpenDxp\Bundle\DataImporterBundle\DependencyInjection\CompilerPass\CleanupStrategyConfigurationFactoryPass;
 use OpenDxp\Bundle\DataImporterBundle\DependencyInjection\CompilerPass\InterpreterConfigurationFactoryPass;
@@ -163,12 +164,7 @@ class OpenDxpDataImporterBundle extends AbstractOpenDxpBundle implements Depende
         $collection->addBundle(new FlysystemBundle());
         $collection->addBundle(new OpenDxpAdminBundle(), 60);
 
-        if (\OpenDxp\Version::getMajorVersion() >= 11) {
-            $collection->addBundle(
-                \OpenDxp\Bundle\ApplicationLoggerBundle\OpenDxpApplicationLoggerBundle::class,
-                10
-            );
-        }
+        $collection->addBundle(OpenDxpApplicationLoggerBundle::class, 10);
     }
 
     public function getInstaller(): ?InstallerInterface
