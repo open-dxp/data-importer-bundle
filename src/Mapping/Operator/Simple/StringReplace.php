@@ -25,6 +25,7 @@ class StringReplace extends AbstractOperator
 
     protected string $replace;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->search = $settings['search'] ?? '';

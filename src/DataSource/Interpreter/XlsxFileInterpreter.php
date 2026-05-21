@@ -74,7 +74,7 @@ class XlsxFileInterpreter extends AbstractInterpreter
             if ($this->skipFirstRow) {
                 $firstRow = array_shift($data);
                 foreach ($firstRow as $index => $columnHeader) {
-                    $columns[$index] = trim($columnHeader) . " [$index]";
+                    $columns[$index] = trim((string) $columnHeader) . " [$index]";
                 }
             }
 

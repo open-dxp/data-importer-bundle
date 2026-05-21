@@ -36,6 +36,7 @@ class ManyToManyRelation extends Direct
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function setSettings(array $settings): void
     {
         parent::setSettings($settings);
@@ -51,6 +52,7 @@ class ManyToManyRelation extends Direct
      *
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     protected function doAssignData($valueContainer, $fieldName, $data)
     {
         $fieldDefinition = $this->getFieldDefinition($valueContainer, $fieldName);

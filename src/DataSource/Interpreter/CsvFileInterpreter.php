@@ -20,7 +20,7 @@ use Symfony\Component\Mime\MimeTypes;
 
 class CsvFileInterpreter extends AbstractInterpreter
 {
-    private const UTF8_BOM = "\xEF\xBB\xBF";
+    private const string UTF8_BOM = "\xEF\xBB\xBF";
 
     /**
      * @var bool
@@ -112,11 +112,11 @@ class CsvFileInterpreter extends AbstractInterpreter
                 if ($this->saveHeaderName) {
                     $header = $data;
                     foreach ($data as $index => $columnHeader) {
-                        $columns[$columnHeader] = trim($columnHeader);
+                        $columns[$columnHeader] = trim((string) $columnHeader);
                     }
                 } else {
                     foreach ($data as $index => $columnHeader) {
-                        $columns[$index] = trim($columnHeader) . " [$index]";
+                        $columns[$index] = trim((string) $columnHeader) . " [$index]";
                     }
                 }
             }

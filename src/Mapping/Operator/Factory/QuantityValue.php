@@ -37,6 +37,7 @@ class QuantityValue extends AbstractOperator
      */
     protected $unitNullIfNoValue;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->unitSource = $settings['unitSourceSelect'] ?? 'id';
@@ -89,7 +90,7 @@ class QuantityValue extends AbstractOperator
                 $unitId = $this->staticUnitId;
         }
 
-        $value = $value ?? null;
+        $value ??= null;
         if (($value === null || $value === '') && $this->unitNullIfNoValue) {
             $unitId = null;
         }
@@ -126,6 +127,7 @@ class QuantityValue extends AbstractOperator
      *
      * @return mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof \OpenDxp\Model\DataObject\Data\QuantityValue) {

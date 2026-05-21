@@ -68,6 +68,7 @@ class QuantityValueArray extends AbstractOperator
      *
      * @return array|mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if (is_array($inputData)) {

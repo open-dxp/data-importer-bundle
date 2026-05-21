@@ -27,6 +27,7 @@ class Date extends AbstractOperator
      */
     protected $format;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->format = $settings['format'] ?? 'Y-m-d';
@@ -81,6 +82,7 @@ class Date extends AbstractOperator
      *
      * @return array|mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof DateTime) {

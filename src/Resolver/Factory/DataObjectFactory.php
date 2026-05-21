@@ -54,7 +54,7 @@ class DataObjectFactory implements FactoryInterface
             throw new InvalidConfigurationException("Class `{$this->subType}` not found.");
         }
 
-        $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst($class->getName());
+        $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst((string) $class->getName());
         $element = $this->modelFactory->build($className);
 
         if (!($element instanceof ElementInterface)) {

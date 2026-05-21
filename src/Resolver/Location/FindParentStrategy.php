@@ -123,7 +123,7 @@ class FindParentStrategy implements LocationStrategyInterface
                     if (empty($class)) {
                         throw new InvalidConfigurationException("Class `{$this->attributeDataObjectClassId}` not found.");
                     }
-                    $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst($class->getName());
+                    $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst((string) $class->getName());
                     $newParent = $this->dataObjectLoader->loadByAttribute($className,
                         $this->attributeName,
                         $identifier,

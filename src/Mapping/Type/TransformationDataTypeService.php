@@ -213,15 +213,10 @@ class TransformationDataTypeService
 
         //replace for advanced relations
         if ($includeAdvancedRelations) {
-            $transformationTargetType = array_map(function ($item) {
-                switch ($item) {
-                    case self::ASSET_ARRAY:
-                        return self::ADVANCED_ASSET_ARRAY;
-                    case self::DATA_OBJECT_ARRAY:
-                        return self::ADVANCED_DATA_OBJECT_ARRAY;
-                    default:
-                        return $item;
-                }
+            $transformationTargetType = array_map(fn($item) => match ($item) {
+                self::ASSET_ARRAY => self::ADVANCED_ASSET_ARRAY,
+                self::DATA_OBJECT_ARRAY => self::ADVANCED_DATA_OBJECT_ARRAY,
+                default => $item,
             }, $transformationTargetType);
         }
 

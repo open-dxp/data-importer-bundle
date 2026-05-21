@@ -31,6 +31,7 @@ class ConditionalConversion extends AbstractOperator
      */
     protected $converted;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->original = $settings['original'] ?? '';

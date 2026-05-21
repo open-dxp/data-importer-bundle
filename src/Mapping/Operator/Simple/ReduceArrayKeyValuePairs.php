@@ -21,6 +21,7 @@ use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService
 
 class ReduceArrayKeyValuePairs extends AbstractOperator
 {
+    #[\Override]
     public function setSettings(array $settings): void
     {
         //nothing to do

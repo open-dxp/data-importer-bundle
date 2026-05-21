@@ -33,11 +33,8 @@ class UploadLoader implements DataLoaderInterface
      */
     protected $temporaryFile = null;
 
-    protected FilesystemOperator $opendxpDataImporterUploadStorage;
-
-    public function __construct(FilesystemOperator $opendxpDataImporterUploadStorage)
+    public function __construct(protected FilesystemOperator $opendxpDataImporterUploadStorage)
     {
-        $this->opendxpDataImporterUploadStorage = $opendxpDataImporterUploadStorage;
     }
 
     public function loadData(): string

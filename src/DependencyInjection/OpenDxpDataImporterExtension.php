@@ -32,6 +32,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class OpenDxpDataImporterExtension extends Extension implements PrependExtensionInterface
 {
+    #[\Override]
     public function getAlias(): string
     {
         return 'opendxp_data_importer';

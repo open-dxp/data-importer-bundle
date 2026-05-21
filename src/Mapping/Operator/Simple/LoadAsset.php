@@ -30,6 +30,7 @@ class LoadAsset extends ImportAsset
      */
     protected $loadStrategy;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->loadStrategy = $settings['loadStrategy'] ?? self::LOAD_STRATEGY_PATH;
@@ -42,6 +43,7 @@ class LoadAsset extends ImportAsset
      *
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function process($inputData, bool $dryRun = false)
     {
         $returnScalar = false;
@@ -54,7 +56,7 @@ class LoadAsset extends ImportAsset
 
         foreach ($inputData as $data) {
             $asset = null;
-            $cleanData = trim($data);
+            $cleanData = trim((string) $data);
             if ($this->loadStrategy === self::LOAD_STRATEGY_PATH) {
                 $asset = Asset::getByPath($cleanData);
             } elseif ($this->loadStrategy === self::LOAD_STRATEGY_ID) {

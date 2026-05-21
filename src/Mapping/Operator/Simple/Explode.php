@@ -31,6 +31,7 @@ class Explode extends AbstractOperator
      */
     protected $keepSubArrays;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->delimiter = $settings['delimiter'] ?? ' ';
@@ -60,7 +61,7 @@ class Explode extends AbstractOperator
 
                 return $explodedArray;
             } else {
-                return explode($this->delimiter, $inputData);
+                return explode($this->delimiter, (string) $inputData);
             }
         } else {
             return [$inputData];

@@ -76,7 +76,7 @@ abstract class AbstractLoad implements LoadStrategyInterface
             throw new InvalidConfigurationException("Class `{$this->dataObjectClassId}` not found.");
         }
 
-        return '\\OpenDxp\\Model\\DataObject\\' . ucfirst($class->getName());
+        return '\\OpenDxp\\Model\\DataObject\\' . ucfirst((string) $class->getName());
     }
 
     /**

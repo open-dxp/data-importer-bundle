@@ -25,11 +25,8 @@ class PreviewService
 {
     use TemporaryFileHelperTrait;
 
-    protected FilesystemOperator $opendxpDataImporterPreviewStorage;
-
-    public function __construct(FilesystemOperator $opendxpDataImporterPreviewStorage)
+    public function __construct(protected FilesystemOperator $opendxpDataImporterPreviewStorage)
     {
-        $this->opendxpDataImporterPreviewStorage = $opendxpDataImporterPreviewStorage;
     }
 
     public function writePreviewFile(string $configName, string $sourcePath, User $user)

@@ -58,6 +58,7 @@ class ImageAdvanced extends AbstractOperator
      *
      * @return mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof Hotspotimage) {

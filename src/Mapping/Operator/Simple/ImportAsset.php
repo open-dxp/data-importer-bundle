@@ -45,6 +45,7 @@ class ImportAsset extends AbstractOperator
      */
     protected $pregMatch;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->parentFolderPath = $settings['parentFolder'] ?? '/';
@@ -71,7 +72,7 @@ class ImportAsset extends AbstractOperator
         $assets = [];
 
         foreach ($inputData as $data) {
-            $fileUrl = trim($data);
+            $fileUrl = trim((string) $data);
 
             if (empty($fileUrl)) {
                 continue;
@@ -199,6 +200,7 @@ class ImportAsset extends AbstractOperator
      *
      * @return array|false|mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         $returnScalar = false;

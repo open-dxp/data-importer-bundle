@@ -60,7 +60,7 @@ class ExecutionService
             );
 
             return $timestamp ? date_create()->setTimestamp($timestamp) : null;
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createTableIfNotExisting();
 
             return $this->getLastExecution($configName);
@@ -75,7 +75,7 @@ class ExecutionService
                     self::EXECUTION_STORAGE_TABLE_NAME),
                 [$configName, $executionTimestamp->getTimestamp(), $executionTimestamp->getTimestamp()]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createTableIfNotExisting();
             $this->updateExecutionTimestamp($configName, $executionTimestamp);
         }
@@ -88,7 +88,7 @@ class ExecutionService
                 sprintf('SELECT lastExecutionDate FROM %s WHERE configName = ?', self::EXECUTION_STORAGE_TABLE_NAME),
                 [$configName]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $timestamp = false;
         }
 
@@ -104,7 +104,7 @@ class ExecutionService
                 sprintf('DELETE FROM %s WHERE configName = ?', self::EXECUTION_STORAGE_TABLE_NAME),
                 [$configName]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createTableIfNotExisting();
         }
     }

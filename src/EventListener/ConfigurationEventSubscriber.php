@@ -43,17 +43,11 @@ class ConfigurationEventSubscriber implements EventSubscriberInterfaceAlias
      */
     protected $executionService;
 
-    protected FilesystemOperator $opendxpDataImporterUploadStorage;
-
-    protected FilesystemOperator $opendxpDataImporterPreviewStorage;
-
-    public function __construct(DeltaChecker $deltaChecker, QueueService $queueService, ExecutionService $executionService, FilesystemOperator $opendxpDataImporterUploadStorage, FilesystemOperator $opendxpDataImporterPreviewStorage)
+    public function __construct(DeltaChecker $deltaChecker, QueueService $queueService, ExecutionService $executionService, protected FilesystemOperator $opendxpDataImporterUploadStorage, protected FilesystemOperator $opendxpDataImporterPreviewStorage)
     {
         $this->deltaChecker = $deltaChecker;
         $this->queueService = $queueService;
         $this->executionService = $executionService;
-        $this->opendxpDataImporterUploadStorage = $opendxpDataImporterUploadStorage;
-        $this->opendxpDataImporterPreviewStorage = $opendxpDataImporterPreviewStorage;
     }
 
     /**

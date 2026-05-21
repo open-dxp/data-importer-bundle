@@ -23,7 +23,7 @@ use OpenDxp\Localization\LocaleServiceInterface;
 
 class AsCountries extends AbstractOperator
 {
-    public function __construct(ApplicationLogger $applicationLogger, private LocaleServiceInterface $localeService)
+    public function __construct(ApplicationLogger $applicationLogger, private readonly LocaleServiceInterface $localeService)
     {
         parent::__construct($applicationLogger);
     }
@@ -34,7 +34,7 @@ class AsCountries extends AbstractOperator
 
         foreach ($inputData as &$input) {
             foreach ($countries as $countryCode => $country) {
-                if (ltrim(rtrim($input)) == $country) {
+                if (ltrim(rtrim((string) $input)) == $country) {
                     $input = $countryCode;
 
                     break;

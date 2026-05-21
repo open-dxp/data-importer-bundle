@@ -26,6 +26,7 @@ class InputQuantityValue extends QuantityValue
      *
      * @return \OpenDxp\Model\DataObject\Data\InputQuantityValue
      */
+    #[\Override]
     public function process($inputData, bool $dryRun = false)
     {
         $unit = isset($inputData[1]) ? Unit::getByAbbreviation($inputData[1]) : null;
@@ -39,6 +40,7 @@ class InputQuantityValue extends QuantityValue
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function evaluateReturnType(string $inputType, ?int $index = null): string
     {
         if ($inputType !== TransformationDataTypeService::DEFAULT_ARRAY) {
@@ -58,6 +60,7 @@ class InputQuantityValue extends QuantityValue
      *
      * @return string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof \OpenDxp\Model\DataObject\Data\InputQuantityValue) {

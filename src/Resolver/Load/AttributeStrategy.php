@@ -38,6 +38,7 @@ class AttributeStrategy extends AbstractLoad
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function setSettings(array $settings): void
     {
         parent::setSettings($settings);
