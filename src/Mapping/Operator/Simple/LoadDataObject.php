@@ -22,6 +22,7 @@ use OpenDxp\Bundle\DataImporterBundle\OpenDxpDataImporterBundle;
 use OpenDxp\Bundle\DataImporterBundle\Tool\DataObjectLoader;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class LoadDataObject extends AbstractOperator
 {
@@ -63,9 +64,7 @@ class LoadDataObject extends AbstractOperator
 
     protected DataObjectLoader $dataObjectLoader;
 
-    /**
-     * @required
-     */
+    #[Required]
     public function setDataObjectLoader(DataObjectLoader $dataObjectLoader)
     {
         $this->dataObjectLoader = $dataObjectLoader;
