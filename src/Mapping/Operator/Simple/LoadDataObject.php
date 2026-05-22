@@ -70,6 +70,7 @@ class LoadDataObject extends AbstractOperator
         $this->dataObjectLoader = $dataObjectLoader;
     }
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->loadStrategy = $settings['loadStrategy'] ?? self::LOAD_STRATEGY_ID;
@@ -107,11 +108,11 @@ class LoadDataObject extends AbstractOperator
             $logMessage = '';
             if (empty($data) === false || $data === '0') {
                 if ($this->loadStrategy === self::LOAD_STRATEGY_PATH) {
-                    $object = $this->dataObjectLoader->loadByPath(trim($data));
-                    $logMessage = 'by path `' . trim($data) . '`';
+                    $object = $this->dataObjectLoader->loadByPath(trim((string) $data));
+                    $logMessage = 'by path `' . trim((string) $data) . '`';
                 } elseif ($this->loadStrategy === self::LOAD_STRATEGY_ID) {
-                    $object = $this->dataObjectLoader->loadById(trim($data));
-                    $logMessage = 'by id `' . trim($data) . '`';
+                    $object = $this->dataObjectLoader->loadById(trim((string) $data));
+                    $logMessage = 'by id `' . trim((string) $data) . '`';
                 } elseif ($this->loadStrategy === self::LOAD_STRATEGY_ATTRIBUTE) {
                     if ($this->attributeName) {
                         $operator = '=';
@@ -119,25 +120,25 @@ class LoadDataObject extends AbstractOperator
                         if (empty($class)) {
                             throw new InvalidConfigurationException("Class `{$this->attributeDataObjectClassId}` not found.");
                         }
-                        $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst($class->getName());
+                        $className = '\\OpenDxp\\Model\\DataObject\\' . ucfirst((string) $class->getName());
                         if ($this->partialMatch) {
                             $data = "%$data%";
                             $operator = 'LIKE';
 
                             if ($this->attributeLanguage) {
                                 $logMessage = 'by attribute partially `%s` (class `%s`, value `%s`, language `%s`)';
-                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst($class->getName()), $data, $this->attributeLanguage);
+                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst((string) $class->getName()), $data, $this->attributeLanguage);
                             } else {
                                 $logMessage = 'by attribute partially `%s` (class `%s`, value `%s`)';
-                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst($class->getName()), $data);
+                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst((string) $class->getName()), $data);
                             }
                         } else {
                             if ($this->attributeLanguage) {
                                 $logMessage = 'by attribute `%s` (class `%s`, value `%s`, language `%s`)';
-                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst($class->getName()), $data, $this->attributeLanguage);
+                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst((string) $class->getName()), $data, $this->attributeLanguage);
                             } else {
                                 $logMessage = 'by attribute `%s` (class `%s`, value `%s`)';
-                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst($class->getName()), $data);
+                                $logMessage = sprintf($logMessage, $this->attributeName, ucfirst((string) $class->getName()), $data);
                             }
                         }
                         $object = $this->dataObjectLoader->loadByAttribute($className,
@@ -200,6 +201,7 @@ class LoadDataObject extends AbstractOperator
      *
      * @return array|false|mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         $returnScalar = false;

@@ -35,7 +35,7 @@ class HtmlDecode extends AbstractOperator
         }
 
         foreach ($inputData as &$data) {
-            $data = html_entity_decode($data);
+            $data = html_entity_decode((string) $data);
         }
 
         if ($returnScalar) {

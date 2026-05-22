@@ -36,7 +36,7 @@ class PushImportController
 
         $header = $request->headers->get('authorization');
 
-        $token = trim((string) preg_replace('/^(?:\s+)?Bearer\s/', '', $header));
+        $token = trim((string) preg_replace('/^(?:\s+)?Bearer\s/', '', (string) $header));
 
         if (trim($token) !== trim($loader->getApiKey())) {
             throw new AccessDeniedHttpException('Invalid token');

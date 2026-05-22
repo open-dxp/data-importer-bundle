@@ -17,17 +17,8 @@ namespace OpenDxp\Bundle\DataImporterBundle\Event;
 
 class PostPreparationEvent
 {
-    protected string $configName;
-
-    protected string $executionType;
-
-    protected bool $fileInterpreted;
-
-    public function __construct(string $configName, string $executionType, bool $fileInterpreted)
+    public function __construct(protected string $configName, protected string $executionType, protected bool $fileInterpreted)
     {
-        $this->configName = $configName;
-        $this->executionType = $executionType;
-        $this->fileInterpreted = $fileInterpreted;
     }
 
     public function getConfigName(): string

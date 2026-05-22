@@ -42,7 +42,7 @@ class SqlLoader implements DataLoaderInterface
 
     private Connection $databaseConnection;
 
-    public function __construct(private Component\Filesystem\Filesystem $filesystem)
+    public function __construct(private readonly Component\Filesystem\Filesystem $filesystem)
     {
     }
 

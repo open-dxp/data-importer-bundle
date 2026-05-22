@@ -24,6 +24,7 @@ class Installer extends SettingsStoreAwareInstaller
 {
     const DATAHUB_ADAPTER_PERMISSION = 'plugin_datahub_adapter_dataImporterDataObject';
 
+    #[\Override]
     public function needsReloadAfterInstall(): bool
     {
         return true;
@@ -32,6 +33,7 @@ class Installer extends SettingsStoreAwareInstaller
     /**
      * @throws Exception
      */
+    #[\Override]
     public function install(): void
     {
         $appLoggerInstaller = OpenDxp::getContainer()->get(\OpenDxp\Bundle\ApplicationLoggerBundle\Installer::class);

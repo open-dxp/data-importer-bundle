@@ -47,6 +47,7 @@ class OpenDxpDataImporterBundle extends AbstractOpenDxpBundle implements Depende
         return 'open-dxp/data-importer-bundle';
     }
 
+    #[\Override]
     public function getContainerExtension(): ?ExtensionInterface
     {
         if ($this->extension === null) {

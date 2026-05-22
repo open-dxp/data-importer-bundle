@@ -26,6 +26,7 @@ class Combine extends AbstractOperator
      */
     protected $glue;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->glue = $settings['glue'] ?? ' ';

@@ -1,3 +1,6 @@
+includes:
+    - %currentWorkingDirectory%/vendor/phpstan/phpstan-symfony/extension.neon
+    - phpstan-baseline.neon
 parameters:
     level: 5
     paths:
@@ -7,6 +10,6 @@ parameters:
     excludePaths:
         - src/Command/DummyDataCommand.php
         - src/Command/ParallelizationAbstractCommand.php
-
-includes:
-    - phpstan-baseline.neon
+    symfony:
+        containerXmlPath: %currentWorkingDirectory%/var/cache/test/App_KernelTestDebugContainer.xml
+        constantHassers: false

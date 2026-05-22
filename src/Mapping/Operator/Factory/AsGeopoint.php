@@ -37,6 +37,7 @@ class AsGeopoint extends AbstractOperator
      *
      * @return mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof GeoCoordinates) {

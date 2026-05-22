@@ -65,7 +65,7 @@ class QueueService
                     $userOwner,
                 ])
             ));
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createQueueTableIfNotExisting(function () use ($configName, $executionType, $jobType, $data, $userOwner) {
                 $this->addItemToQueue($configName, $executionType, $jobType, $data, $userOwner);
             });
@@ -129,10 +129,8 @@ class QueueService
             }
 
             return $results ?? []; // @phpstan-ignore-line
-        } catch (TableNotFoundException $exception) {
-            return $this->createQueueTableIfNotExisting(function () use ($executionType, $limit) {
-                return $this->getAllQueueEntryIds($executionType, $limit);
-            });
+        } catch (TableNotFoundException) {
+            return $this->createQueueTableIfNotExisting(fn() => $this->getAllQueueEntryIds($executionType, $limit));
         }
     }
 
@@ -148,10 +146,8 @@ class QueueService
             );
 
             return is_array($result) ? $result : [];
-        } catch (TableNotFoundException $exception) {
-            return $this->createQueueTableIfNotExisting(function () use ($id) {
-                return $this->getQueueEntryById($id);
-            });
+        } catch (TableNotFoundException) {
+            return $this->createQueueTableIfNotExisting(fn() => $this->getQueueEntryById($id));
         }
     }
 
@@ -162,10 +158,8 @@ class QueueService
                 sprintf('SELECT count(*) as count FROM %s WHERE configName = ?', self::QUEUE_TABLE_NAME),
                 [$configName]
             ) ?? 0;
-        } catch (TableNotFoundException $exception) {
-            return $this->createQueueTableIfNotExisting(function () use ($configName) {
-                return $this->getQueueItemCount($configName);
-            });
+        } catch (TableNotFoundException) {
+            return $this->createQueueTableIfNotExisting(fn() => $this->getQueueItemCount($configName));
         }
     }
 
@@ -181,7 +175,7 @@ class QueueService
                 sprintf('DELETE FROM %s WHERE id = ?', self::QUEUE_TABLE_NAME),
                 [$id]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createQueueTableIfNotExisting();
         }
     }
@@ -196,7 +190,7 @@ class QueueService
                 sprintf('DELETE FROM %s WHERE configName = ?', self::QUEUE_TABLE_NAME),
                 [$configName]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createQueueTableIfNotExisting();
         }
     }

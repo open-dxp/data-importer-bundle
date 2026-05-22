@@ -63,7 +63,7 @@ class ClassificationstoreBatch implements DataTargetInterface
             $data = array_filter($data);
             if (!empty($data)) {
                 foreach ($data as $key => $value) {
-                    $keyParts = explode('-', $key);
+                    $keyParts = explode('-', (string) $key);
                     if (count($keyParts) !== 2) {
                         throw new InvalidInputException('Key not format <GROUP_ID>-<KEY_ID>: ' . $key);
                     }

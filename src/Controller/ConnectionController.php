@@ -33,10 +33,6 @@ class ConnectionController extends UserAwareController
     {
         $connections = $this->getParameter('doctrine.connections');
 
-        if (!is_array($connections)) {
-            throw new Exception('Doctrine connection not returned as array');
-        }
-
         $mappedConnections = array_map(fn ($key, $value): array => [
             'name' => $key,
             'value' => $value,

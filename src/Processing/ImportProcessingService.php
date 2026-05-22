@@ -143,7 +143,7 @@ class ImportProcessingService
 
             //process element
             if ($queueItem['jobType'] === self::JOB_TYPE_PROCESS) {
-                $data = json_decode($queueItem['data'], true);
+                $data = json_decode((string) $queueItem['data'], true);
                 $this->processElement($configName, $data, $resolver, $mapping, $userOwner);
             } elseif ($queueItem['jobType'] === self::JOB_TYPE_CLEANUP) {
                 $this->cleanupElement($configName, $queueItem['data'], $resolver, $config['processingConfig']['cleanup'] ?? []);

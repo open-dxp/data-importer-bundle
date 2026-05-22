@@ -60,6 +60,7 @@ class Numeric extends AbstractOperator
      *
      * @return mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($this->returnNullIfEmpty && !is_numeric($inputData)) {
@@ -69,6 +70,7 @@ class Numeric extends AbstractOperator
         return $inputData;
     }
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->returnNullIfEmpty = (bool) ($settings['returnNullIfEmpty'] ?? false);

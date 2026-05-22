@@ -81,7 +81,7 @@ class ConfigDataObjectController extends UserAwareController
             $dataDecoded = json_decode($data, true);
 
             $name = $dataDecoded['general']['name'];
-            $dataDecoded['general']['active'] = $dataDecoded['general']['active'] ?? false;
+            $dataDecoded['general']['active'] ??= false;
             $config = Dao::getByName($name);
             if (!$config->isAllowed('update')) {
                 throw $this->createAccessDeniedHttpException();
@@ -439,15 +439,15 @@ class ConfigDataObjectController extends UserAwareController
         $sortParams = QueryParams::extractSortingSettings(['sort' => $request->query->get('sort')]);
 
         $list = $classificationStoreDataTypeService->listClassificationStoreKeyList(
-            strip_tags($request->query->get('class_id')),
-            strip_tags($request->query->get('field_name')),
-            strip_tags($request->query->get('transformation_result_type')),
+            strip_tags((string) $request->query->get('class_id')),
+            strip_tags((string) $request->query->get('field_name')),
+            strip_tags((string) $request->query->get('transformation_result_type')),
             $sortParams['orderKey'] ?? 'name',
             $sortParams['order'] ?? 'ASC',
             $request->query->getInt('start'),
             $request->query->getInt('limit'),
-            strip_tags($request->query->get('searchfilter')),
-            strip_tags($request->query->get('filter'))
+            strip_tags((string) $request->query->get('searchfilter')),
+            strip_tags((string) $request->query->get('filter'))
         );
 
         $data = [];
@@ -483,7 +483,7 @@ class ConfigDataObjectController extends UserAwareController
     public function loadDataObjectClassificationStoreKeyNameAction(Request $request): JsonResponse
     {
         $keyId = $request->query->get('key_id');
-        $keyParts = explode('-', $keyId);
+        $keyParts = explode('-', (string) $keyId);
         if (count($keyParts) === 2) {
             $keyGroupRelation = DataObject\Classificationstore\KeyGroupRelation::getByGroupAndKeyId((int)$keyParts[0], (int)$keyParts[1]);
             if ($keyGroupRelation) {

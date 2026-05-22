@@ -102,9 +102,9 @@ class DummyDataCommand extends AbstractCommand
                 'description_de' => $faker->realText(400, 4),
                 'start' => $startDate->format('y-m-d H:i'),
                 'end' => $faker->dateTimeBetween($startDate)->format('y-m-d H:i'),
-                'tags' => implode(',', array_rand($tags, rand(2, 4))),
+                'tags' => implode(',', array_rand($tags, random_int(2, 4))),
                 'location' => $faker->city,
-                'cars' => implode(',', array_rand($carsIdList, rand(3, 10))),
+                'cars' => implode(',', array_rand($carsIdList, random_int(3, 10))),
                 'mainimage' => 'https://via.placeholder.com/400x200/' . substr($faker->hexColor, 1) . '/000000?text=' . $faker->text(9) . 'jpg',
                 'image2' => Asset::getById(array_rand($assetIdList, 1))->getRealFullPath(),
                 'image3' => Asset::getById(array_rand($assetIdList, 1))->getRealFullPath(),
@@ -138,22 +138,12 @@ class DummyDataCommand extends AbstractCommand
 
         $output->writeln('Writing file to ' . $filename);
 
-        switch ($format) {
-            case 'csv':
-                $this->writeCsv($filename, $data);
-
-                break;
-            case 'json':
-                $this->writeJson($filename, $data);
-
-                break;
-            case 'xml':
-                $this->writeXml($filename, $data);
-
-                break;
-            default:
-                throw new Exception('Invalid format: ' . $format);
-        }
+        match ($format) {
+            'csv' => $this->writeCsv($filename, $data),
+            'json' => $this->writeJson($filename, $data),
+            'xml' => $this->writeXml($filename, $data),
+            default => throw new Exception('Invalid format: ' . $format),
+        };
 
         return 0;
     }
@@ -215,7 +205,7 @@ class DummyDataCommand extends AbstractCommand
                 $subnode = $xml_data->addChild($elementName);
                 $this->arrayToXml($value, $subnode);
             } else {
-                $xml_data->addChild($elementName, htmlspecialchars($value));
+                $xml_data->addChild($elementName, htmlspecialchars((string) $value));
             }
         }
     }

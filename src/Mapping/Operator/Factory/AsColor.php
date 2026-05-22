@@ -31,7 +31,7 @@ class AsColor extends AbstractOperator
             if (count($inputData) > 0 && is_numeric($inputData[0])) {
                 return new RgbaColor(...$inputData);
             }
-        } elseif (str_starts_with($inputData, '#')) {
+        } elseif (str_starts_with((string) $inputData, '#')) {
             $color = new RgbaColor();
             $color->setHex($inputData);
 
@@ -46,6 +46,7 @@ class AsColor extends AbstractOperator
      *
      * @return mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof RgbaColor) {

@@ -40,6 +40,7 @@ class StaticText extends AbstractOperator
      */
     protected $alwaysAdd;
 
+    #[\Override]
     public function setSettings(array $settings): void
     {
         $this->mode = $settings['mode'] ?? self::MODE_APPEND;
@@ -65,20 +66,11 @@ class StaticText extends AbstractOperator
         if ($this->text !== '') {
             foreach ($inputData as &$data) {
                 if (!empty($data) || $this->alwaysAdd) {
-                    switch ($this->mode) {
-                        case self::MODE_APPEND:
-                            $data = $data . $this->text;
-
-                            break;
-
-                        case self::MODE_PREPEND:
-                            $data = $this->text . $data;
-
-                            break;
-
-                        default:
-                            throw new InvalidConfigurationException(sprintf('Invalid mode: %s', $this->mode));
-                    }
+                    $data = match ($this->mode) {
+                        self::MODE_APPEND => $data . $this->text,
+                        self::MODE_PREPEND => $this->text . $data,
+                        default => throw new InvalidConfigurationException(sprintf('Invalid mode: %s', $this->mode)),
+                    };
                 }
             }
         }

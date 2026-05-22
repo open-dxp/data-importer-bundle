@@ -25,6 +25,7 @@ class InputQuantityValueArray extends QuantityValueArray
      *
      * @return array
      */
+    #[\Override]
     public function process($inputData, bool $dryRun = false)
     {
         if (!is_array($inputData)) {
@@ -46,6 +47,7 @@ class InputQuantityValueArray extends QuantityValueArray
     /**
      * @throws InvalidConfigurationException
      */
+    #[\Override]
     public function evaluateReturnType(string $inputType, ?int $index = null): string
     {
         if ($inputType !== TransformationDataTypeService::DEFAULT_ARRAY) {
@@ -60,6 +62,7 @@ class InputQuantityValueArray extends QuantityValueArray
      *
      * @return array|mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if (is_array($inputData)) {

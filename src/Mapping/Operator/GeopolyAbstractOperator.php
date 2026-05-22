@@ -50,6 +50,7 @@ abstract class GeopolyAbstractOperator extends AbstractOperator
      *
      * @return array
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         $preview = null;

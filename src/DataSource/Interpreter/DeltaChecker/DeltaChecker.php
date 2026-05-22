@@ -62,10 +62,8 @@ class DeltaChecker
                 sprintf('SELECT hash FROM %s WHERE configName = ? AND id = ?', self::CACHE_TABLE_NAME),
                 [$configName, $id]
             ) ?? '';
-        } catch (TableNotFoundException $exception) {
-            return $this->createTableIfNotExisting(function () use ($configName, $id) {
-                return $this->getCurrentHash($configName, $id);
-            });
+        } catch (TableNotFoundException) {
+            return $this->createTableIfNotExisting(fn() => $this->getCurrentHash($configName, $id));
         }
     }
 
@@ -76,7 +74,7 @@ class DeltaChecker
                 sprintf('INSERT INTO %s (configName, id, hash) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE hash = ?', self::CACHE_TABLE_NAME),
                 [$configName, $id, $hash, $hash]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createTableIfNotExisting(function () use ($configName, $id, $hash) {
                 $this->updateHash($configName, $id, $hash);
             });
@@ -112,7 +110,7 @@ class DeltaChecker
                 sprintf('DELETE FROM %s WHERE configName = ?', self::CACHE_TABLE_NAME),
                 [$configName]
             );
-        } catch (TableNotFoundException $exception) {
+        } catch (TableNotFoundException) {
             $this->createTableIfNotExisting();
         }
     }

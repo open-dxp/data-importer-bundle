@@ -64,6 +64,7 @@ class Gallery extends AbstractOperator
      *
      * @return array|mixed
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof ImageGallery) {

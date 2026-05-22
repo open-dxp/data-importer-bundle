@@ -41,6 +41,7 @@ class AsGeobounds extends AbstractOperator
      *
      * @return mixed|string
      */
+    #[\Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof Geobounds) {

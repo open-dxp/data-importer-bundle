@@ -116,13 +116,13 @@ class DataObjectLoader
     }
 
     public function loadById(string $identifier,
-        string $className = '\\OpenDxp\\Model\\DataObject'): ?ElementInterface
+        string $className = \OpenDxp\Model\DataObject::class): ?ElementInterface
     {
         return $className::getById((int)$identifier);
     }
 
     public function loadByPath(string $identifier,
-        string $className = '\\OpenDxp\\Model\\DataObject'): ?ElementInterface
+        string $className = \OpenDxp\Model\DataObject::class): ?ElementInterface
     {
         return $className::getByPath($identifier);
     }
