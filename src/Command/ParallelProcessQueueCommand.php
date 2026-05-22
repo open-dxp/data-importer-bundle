@@ -17,6 +17,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Command;
 
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportProcessingService;
 use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
+use Override;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -39,7 +40,7 @@ class ParallelProcessQueueCommand extends ParallelizationAbstractCommand
         $this->queueService = $queueService;
     }
 
-    #[\Override]
+    #[Override]
     protected function configure()
     {
         parent::configure();

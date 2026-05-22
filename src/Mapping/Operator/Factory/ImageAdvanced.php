@@ -20,6 +20,7 @@ use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject\Data\Hotspotimage;
+use Override;
 
 class ImageAdvanced extends AbstractOperator
 {
@@ -58,7 +59,7 @@ class ImageAdvanced extends AbstractOperator
      *
      * @return mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof Hotspotimage) {

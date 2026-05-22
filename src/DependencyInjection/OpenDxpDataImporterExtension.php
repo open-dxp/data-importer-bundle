@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\DependencyInjection;
 use OpenDxp\Bundle\DataImporterBundle\EventListener\DataImporterListener;
 use OpenDxp\Bundle\DataImporterBundle\Maintenance\RestartQueueWorkersTask;
 use OpenDxp\Bundle\DataImporterBundle\Messenger\DataImporterHandler;
+use Override;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
@@ -32,7 +33,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  */
 class OpenDxpDataImporterExtension extends Extension implements PrependExtensionInterface
 {
-    #[\Override]
+    #[Override]
     public function getAlias(): string
     {
         return 'opendxp_data_importer';

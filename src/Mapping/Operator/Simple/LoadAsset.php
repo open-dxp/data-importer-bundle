@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\OpenDxpDataImporterBundle;
 use OpenDxp\Model\Asset;
+use Override;
 
 class LoadAsset extends ImportAsset
 {
@@ -30,7 +31,7 @@ class LoadAsset extends ImportAsset
      */
     protected $loadStrategy;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->loadStrategy = $settings['loadStrategy'] ?? self::LOAD_STRATEGY_PATH;
@@ -43,7 +44,7 @@ class LoadAsset extends ImportAsset
      *
      * @throws InvalidConfigurationException
      */
-    #[\Override]
+    #[Override]
     public function process($inputData, bool $dryRun = false)
     {
         $returnScalar = false;

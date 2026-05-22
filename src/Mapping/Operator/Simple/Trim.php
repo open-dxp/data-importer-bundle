@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class Trim extends AbstractOperator
 {
@@ -32,7 +33,7 @@ class Trim extends AbstractOperator
      */
     protected $mode;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->mode = $settings['mode'] ?? self::MODE_BOTH;

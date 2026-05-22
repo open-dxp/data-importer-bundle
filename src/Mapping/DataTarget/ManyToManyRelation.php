@@ -21,6 +21,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\Data\ElementMetadata;
 use OpenDxp\Model\DataObject\Data\ObjectMetadata;
 use OpenDxp\Model\Element\Service;
+use Override;
 
 class ManyToManyRelation extends Direct
 {
@@ -36,7 +37,7 @@ class ManyToManyRelation extends Direct
     /**
      * @throws InvalidConfigurationException
      */
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         parent::setSettings($settings);
@@ -52,7 +53,7 @@ class ManyToManyRelation extends Direct
      *
      * @throws InvalidConfigurationException
      */
-    #[\Override]
+    #[Override]
     protected function doAssignData($valueContainer, $fieldName, $data)
     {
         $fieldDefinition = $this->getFieldDefinition($valueContainer, $fieldName);

@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class StaticText extends AbstractOperator
 {
@@ -40,7 +41,7 @@ class StaticText extends AbstractOperator
      */
     protected $alwaysAdd;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->mode = $settings['mode'] ?? self::MODE_APPEND;

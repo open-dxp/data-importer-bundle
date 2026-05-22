@@ -22,6 +22,7 @@ use OpenDxp\Bundle\DataImporterBundle\OpenDxpDataImporterBundle;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\Element\DuplicateFullPathException;
 use OpenDxp\Model\Element\Service;
+use Override;
 
 class ImportAsset extends AbstractOperator
 {
@@ -45,7 +46,7 @@ class ImportAsset extends AbstractOperator
      */
     protected $pregMatch;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->parentFolderPath = $settings['parentFolder'] ?? '/';
@@ -200,7 +201,7 @@ class ImportAsset extends AbstractOperator
      *
      * @return array|false|mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         $returnScalar = false;

@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class Combine extends AbstractOperator
 {
@@ -26,7 +27,7 @@ class Combine extends AbstractOperator
      */
     protected $glue;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->glue = $settings['glue'] ?? ' ';

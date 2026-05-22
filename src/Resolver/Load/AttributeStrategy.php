@@ -17,6 +17,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Resolver\Load;
 
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Model\Element\ElementInterface;
+use Override;
 
 class AttributeStrategy extends AbstractLoad
 {
@@ -38,7 +39,7 @@ class AttributeStrategy extends AbstractLoad
     /**
      * @throws InvalidConfigurationException
      */
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         parent::setSettings($settings);

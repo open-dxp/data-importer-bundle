@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class Numeric extends AbstractOperator
 {
@@ -60,7 +61,7 @@ class Numeric extends AbstractOperator
      *
      * @return mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($this->returnNullIfEmpty && !is_numeric($inputData)) {
@@ -70,7 +71,7 @@ class Numeric extends AbstractOperator
         return $inputData;
     }
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->returnNullIfEmpty = (bool) ($settings['returnNullIfEmpty'] ?? false);

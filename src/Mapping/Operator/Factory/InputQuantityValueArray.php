@@ -17,6 +17,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory;
 
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class InputQuantityValueArray extends QuantityValueArray
 {
@@ -25,7 +26,7 @@ class InputQuantityValueArray extends QuantityValueArray
      *
      * @return array
      */
-    #[\Override]
+    #[Override]
     public function process($inputData, bool $dryRun = false)
     {
         if (!is_array($inputData)) {
@@ -47,7 +48,7 @@ class InputQuantityValueArray extends QuantityValueArray
     /**
      * @throws InvalidConfigurationException
      */
-    #[\Override]
+    #[Override]
     public function evaluateReturnType(string $inputType, ?int $index = null): string
     {
         if ($inputType !== TransformationDataTypeService::DEFAULT_ARRAY) {
@@ -62,7 +63,7 @@ class InputQuantityValueArray extends QuantityValueArray
      *
      * @return array|mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if (is_array($inputData)) {

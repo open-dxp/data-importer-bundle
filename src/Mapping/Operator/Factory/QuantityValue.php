@@ -19,6 +19,7 @@ use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
 use OpenDxp\Model\DataObject\QuantityValue\Unit;
+use Override;
 
 class QuantityValue extends AbstractOperator
 {
@@ -37,7 +38,7 @@ class QuantityValue extends AbstractOperator
      */
     protected $unitNullIfNoValue;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->unitSource = $settings['unitSourceSelect'] ?? 'id';
@@ -127,7 +128,7 @@ class QuantityValue extends AbstractOperator
      *
      * @return mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof \OpenDxp\Model\DataObject\Data\QuantityValue) {

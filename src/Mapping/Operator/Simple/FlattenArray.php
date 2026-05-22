@@ -18,10 +18,11 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class FlattenArray extends AbstractOperator
 {
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         //nothing to do

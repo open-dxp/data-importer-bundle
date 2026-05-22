@@ -20,6 +20,7 @@ use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
 use OpenDxp\Model\DataObject\Data\Geobounds;
 use OpenDxp\Model\DataObject\Data\GeoCoordinates;
+use Override;
 
 class AsGeobounds extends AbstractOperator
 {
@@ -41,7 +42,7 @@ class AsGeobounds extends AbstractOperator
      *
      * @return mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof Geobounds) {

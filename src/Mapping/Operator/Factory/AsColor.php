@@ -19,6 +19,7 @@ use Exception;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
 use OpenDxp\Model\DataObject\Data\RgbaColor;
+use Override;
 
 class AsColor extends AbstractOperator
 {
@@ -46,7 +47,7 @@ class AsColor extends AbstractOperator
      *
      * @return mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof RgbaColor) {

@@ -21,6 +21,7 @@ use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject\Data\Hotspotimage;
 use OpenDxp\Model\DataObject\Data\ImageGallery;
+use Override;
 
 class Gallery extends AbstractOperator
 {
@@ -64,7 +65,7 @@ class Gallery extends AbstractOperator
      *
      * @return array|mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof ImageGallery) {

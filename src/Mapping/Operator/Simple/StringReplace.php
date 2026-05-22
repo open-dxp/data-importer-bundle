@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Simple;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class StringReplace extends AbstractOperator
 {
@@ -25,7 +26,7 @@ class StringReplace extends AbstractOperator
 
     protected string $replace;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->search = $settings['search'] ?? '';

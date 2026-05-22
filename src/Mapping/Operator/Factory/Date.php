@@ -19,6 +19,7 @@ use DateTime;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class Date extends AbstractOperator
 {
@@ -27,7 +28,7 @@ class Date extends AbstractOperator
      */
     protected $format;
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->format = $settings['format'] ?? 'Y-m-d';
@@ -82,7 +83,7 @@ class Date extends AbstractOperator
      *
      * @return array|mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof DateTime) {

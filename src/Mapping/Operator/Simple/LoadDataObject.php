@@ -22,6 +22,7 @@ use OpenDxp\Bundle\DataImporterBundle\OpenDxpDataImporterBundle;
 use OpenDxp\Bundle\DataImporterBundle\Tool\DataObjectLoader;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition;
+use Override;
 use Symfony\Contracts\Service\Attribute\Required;
 
 class LoadDataObject extends AbstractOperator
@@ -70,7 +71,7 @@ class LoadDataObject extends AbstractOperator
         $this->dataObjectLoader = $dataObjectLoader;
     }
 
-    #[\Override]
+    #[Override]
     public function setSettings(array $settings): void
     {
         $this->loadStrategy = $settings['loadStrategy'] ?? self::LOAD_STRATEGY_ID;
@@ -201,7 +202,7 @@ class LoadDataObject extends AbstractOperator
      *
      * @return array|false|mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         $returnScalar = false;

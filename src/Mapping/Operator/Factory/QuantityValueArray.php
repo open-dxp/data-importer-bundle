@@ -18,6 +18,7 @@ namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\Factory;
 use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
+use Override;
 
 class QuantityValueArray extends AbstractOperator
 {
@@ -68,7 +69,7 @@ class QuantityValueArray extends AbstractOperator
      *
      * @return array|mixed
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if (is_array($inputData)) {

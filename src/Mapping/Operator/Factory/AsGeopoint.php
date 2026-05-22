@@ -19,6 +19,7 @@ use OpenDxp\Bundle\DataImporterBundle\Exception\InvalidConfigurationException;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Operator\AbstractOperator;
 use OpenDxp\Bundle\DataImporterBundle\Mapping\Type\TransformationDataTypeService;
 use OpenDxp\Model\DataObject\Data\GeoCoordinates;
+use Override;
 
 class AsGeopoint extends AbstractOperator
 {
@@ -37,7 +38,7 @@ class AsGeopoint extends AbstractOperator
      *
      * @return mixed|string
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         if ($inputData instanceof GeoCoordinates) {

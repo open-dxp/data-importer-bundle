@@ -130,7 +130,7 @@ class QueueService
 
             return $results ?? []; // @phpstan-ignore-line
         } catch (TableNotFoundException) {
-            return $this->createQueueTableIfNotExisting(fn() => $this->getAllQueueEntryIds($executionType, $limit));
+            return $this->createQueueTableIfNotExisting(fn () => $this->getAllQueueEntryIds($executionType, $limit));
         }
     }
 
@@ -147,7 +147,7 @@ class QueueService
 
             return is_array($result) ? $result : [];
         } catch (TableNotFoundException) {
-            return $this->createQueueTableIfNotExisting(fn() => $this->getQueueEntryById($id));
+            return $this->createQueueTableIfNotExisting(fn () => $this->getQueueEntryById($id));
         }
     }
 
@@ -159,7 +159,7 @@ class QueueService
                 [$configName]
             ) ?? 0;
         } catch (TableNotFoundException) {
-            return $this->createQueueTableIfNotExisting(fn() => $this->getQueueItemCount($configName));
+            return $this->createQueueTableIfNotExisting(fn () => $this->getQueueItemCount($configName));
         }
     }
 

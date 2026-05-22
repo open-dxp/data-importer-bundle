@@ -32,6 +32,7 @@ use OpenDxp\Extension\Bundle\Traits\BundleAdminClassicTrait;
 use OpenDxp\Extension\Bundle\Traits\PackageVersionTrait;
 use OpenDxp\HttpKernel\Bundle\DependentBundleInterface;
 use OpenDxp\HttpKernel\BundleCollection\BundleCollection;
+use Override;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
@@ -47,7 +48,7 @@ class OpenDxpDataImporterBundle extends AbstractOpenDxpBundle implements Depende
         return 'open-dxp/data-importer-bundle';
     }
 
-    #[\Override]
+    #[Override]
     public function getContainerExtension(): ?ExtensionInterface
     {
         if ($this->extension === null) {

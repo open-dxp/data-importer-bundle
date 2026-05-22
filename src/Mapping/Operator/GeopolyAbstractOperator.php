@@ -16,6 +16,7 @@
 namespace OpenDxp\Bundle\DataImporterBundle\Mapping\Operator;
 
 use OpenDxp\Model\DataObject\Data\GeoCoordinates;
+use Override;
 
 abstract class GeopolyAbstractOperator extends AbstractOperator
 {
@@ -50,7 +51,7 @@ abstract class GeopolyAbstractOperator extends AbstractOperator
      *
      * @return array
      */
-    #[\Override]
+    #[Override]
     public function generateResultPreview($inputData)
     {
         $preview = null;
