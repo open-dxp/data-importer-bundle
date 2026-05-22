@@ -8,6 +8,9 @@
         "preferred-install": {
             "open-dxp/opendxp": "source",
             "*": "dist"
+        },
+        "allow-plugins": {
+            "symfony/runtime": true
         }
     },
     "require": {
@@ -31,7 +34,9 @@
         "codeception/phpunit-wrapper": "^9",
         "phpunit/phpunit": "^9.3",
         "phpstan/phpstan": "^2.0",
-        "phpstan/phpstan-symfony": "^2.0.15"
+        "phpstan/phpstan-symfony": "^2.0.15",
+        "symfony/dotenv": "^7.3",
+        "symfony/runtime": "^7.3"
     },
     "autoload": {
         "psr-4": {
