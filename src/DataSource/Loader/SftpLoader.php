@@ -56,9 +56,8 @@ class SftpLoader implements DataLoaderInterface
      */
     protected $password;
 
-    public function __construct(
-        protected Component\Filesystem\Filesystem $filesystem
-    ) {
+    public function __construct(protected Component\Filesystem\Filesystem $filesystem)
+    {
     }
 
     public function loadData(): string

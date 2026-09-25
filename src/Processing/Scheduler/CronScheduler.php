@@ -22,8 +22,10 @@ class CronScheduler implements SchedulerInterface
 {
     const NAME = 'cron';
 
-    public function __construct(private readonly string $cronDefinition, private readonly DateTime $modifiedAt)
-    {
+    public function __construct(
+        private readonly string $cronDefinition,
+        private readonly DateTime $modifiedAt
+    ) {
     }
 
     public function isExecutable(?DateTime $executedAt): bool

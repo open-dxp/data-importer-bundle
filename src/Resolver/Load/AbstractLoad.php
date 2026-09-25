@@ -42,8 +42,10 @@ abstract class AbstractLoad implements LoadStrategyInterface
     /**
      * AbstractLoad constructor.
      */
-    public function __construct(Connection $connection, protected DataObjectLoader $dataObjectLoader)
-    {
+    public function __construct(
+        Connection $connection,
+        protected DataObjectLoader $dataObjectLoader
+    ) {
         $this->db = $connection;
     }
 

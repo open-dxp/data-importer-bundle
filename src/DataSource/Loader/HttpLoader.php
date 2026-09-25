@@ -35,9 +35,8 @@ class HttpLoader implements DataLoaderInterface
      */
     protected $importFilePath;
 
-    public function __construct(
-        protected Filesystem $filesystem
-    ) {
+    public function __construct(protected Filesystem $filesystem)
+    {
     }
 
     public function loadData(): string

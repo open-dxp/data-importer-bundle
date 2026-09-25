@@ -21,8 +21,10 @@ class JobScheduler implements SchedulerInterface
 {
     const NAME = 'job';
 
-    public function __construct(private readonly DateTime $scheduledAt, private readonly DateTime $modifiedAt)
-    {
+    public function __construct(
+        private readonly DateTime $scheduledAt,
+        private readonly DateTime $modifiedAt
+    ) {
     }
 
     public function isExecutable(?DateTime $executedAt): bool

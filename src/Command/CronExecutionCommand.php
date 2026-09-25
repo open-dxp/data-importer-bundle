@@ -24,9 +24,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class CronExecutionCommand extends AbstractCommand
 {
-    public function __construct(
-        protected ImportPreparationService $importPreparationService
-    ) {
+    public function __construct(protected ImportPreparationService $importPreparationService)
+    {
         parent::__construct();
     }
 
