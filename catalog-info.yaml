@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+    name: data-importer-bundle
+    description: This extension adds a comprehensive import functionality to OpenDXP
+        Datahub.
+spec:
+    type: library
+    lifecycle: production
+    owner: team-opendxp
+    system: opendxp
