@@ -50,9 +50,4 @@ class Installer extends SettingsStoreAwareInstaller
 
         parent::install();
     }
-
-    public function getLastMigrationVersionClassName(): ?string
-    {
-        return null;
-    }
 }
