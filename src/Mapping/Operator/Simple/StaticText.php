@@ -66,7 +66,7 @@ class StaticText extends AbstractOperator
 
         if ($this->text !== '') {
             foreach ($inputData as &$data) {
-                if (!empty($data) || $this->alwaysAdd) {
+                if ((string) $data !== '' || $this->alwaysAdd) {
                     $data = match ($this->mode) {
                         self::MODE_APPEND => $data . $this->text,
                         self::MODE_PREPEND => $this->text . $data,
