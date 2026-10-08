@@ -1,6 +1,7 @@
 # Update Notes
 
 ## 1.1.0
+* [BUGFIX] The operator `StaticText` appends its text to the value `0` as well. It took `0` for an empty value
 * [CHORE] Replace Codeception with Pest and `open-dxp/test-foundation`
 * [CHORE] Require `open-dxp/opendxp` ^1.5
 
