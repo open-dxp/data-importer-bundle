@@ -2,7 +2,7 @@
 
 ## 1.1.0
 * [ENHANCEMENT] The installer creates the table of the import queue. Before, the queue created it on its first use
-* [BUGFIX] The operator `StaticText` appends its text to the value `0` as well. It took `0` for an empty value
+* [BUGFIX] The operator `StaticText` appends its text to the value `0` as well. It treated `0` as an empty value
 * [CHORE] Replace Codeception with Pest and `open-dxp/test-foundation`
 * [CHORE] Require `open-dxp/opendxp` ^1.5
 
