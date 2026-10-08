@@ -17,13 +17,22 @@ namespace OpenDxp\Bundle\DataImporterBundle;
 
 use Exception;
 use OpenDxp;
+use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
 use OpenDxp\Model\User\Permission;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Override;
 
 class Installer extends SettingsStoreAwareInstaller
 {
     const DATAHUB_ADAPTER_PERMISSION = 'plugin_datahub_adapter_dataImporterDataObject';
+
+    public function __construct(
+        BundleInterface $bundle,
+        private readonly QueueService $queue,
+    ) {
+        parent::__construct($bundle);
+    }
 
     #[Override]
     public function needsReloadAfterInstall(): bool
@@ -47,6 +56,10 @@ class Installer extends SettingsStoreAwareInstaller
         Permission\Definition::create(self::DATAHUB_ADAPTER_PERMISSION)
             ->setCategory(\OpenDxp\Bundle\DataHubBundle\Installer::DATAHUB_PERMISSION_CATEGORY)
             ->save();
+
+        $this->queue->createQueueTable();
+
+        $this->markMigrationsAsExecuted();
 
         parent::install();
     }
