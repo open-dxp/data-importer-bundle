@@ -20,8 +20,8 @@ use OpenDxp;
 use OpenDxp\Bundle\DataImporterBundle\Queue\QueueService;
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
 use OpenDxp\Model\User\Permission;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Override;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 class Installer extends SettingsStoreAwareInstaller
 {
