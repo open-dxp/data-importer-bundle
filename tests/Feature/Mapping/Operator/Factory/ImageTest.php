@@ -16,38 +16,73 @@ function image(string $key): Image
     return (new Image())->setKey($key);
 }
 
-it('puts every image into a gallery', function () {
-    $operator = Container::get(Gallery::class);
+it('puts a single image into a gallery', function () {
+    $gallery = Container::get(Gallery::class)->process(image('first'));
 
-    expect($operator->process(image('first'))->getItems())->toHaveCount(1)
-        ->and($operator->process([image('first'), image('second')])->getItems())->toHaveCount(2);
+    expect($gallery->getItems())->toHaveCount(1);
+});
+
+it('puts every image into a gallery', function () {
+    $gallery = Container::get(Gallery::class)->process([
+        image('first'),
+        image('second'),
+    ]);
+
+    expect($gallery->getItems())->toHaveCount(2);
 });
 
 it('makes an empty gallery of what is no image', function () {
     $gallery = Container::get(Gallery::class)->process('foo');
 
-    expect($gallery)->toBeInstanceOf(ImageGallery::class)
-        ->and($gallery->getItems())->toBe([]);
+    expect($gallery)
+        ->toBeInstanceOf(ImageGallery::class)
+        ->and($gallery->getItems())
+        ->toBe([]);
 });
 
 it('previews a gallery as one line per image', function () {
     $operator = Container::get(Gallery::class);
+    $gallery = $operator->process([
+        image('first'),
+        image('second'),
+    ]);
 
-    expect($operator->generateResultPreview($operator->process([image('first'), image('second')])))
+    $preview = $operator->generateResultPreview($gallery);
+
+    expect($preview)
         ->toHaveCount(2)
         ->each->toStartWith('GalleryImage');
 });
 
 it('makes an advanced image of the first image', function () {
-    $operator = Container::get(ImageAdvanced::class);
-    $image = $operator->process([image('first'), image('second')]);
+    $image = Container::get(ImageAdvanced::class)->process([
+        image('first'),
+        image('second'),
+    ]);
 
-    expect($image)->toBeInstanceOf(Hotspotimage::class)
-        ->and($image->getImage()->getKey())->toBe('first')
-        ->and($operator->process(image('single'))->getImage()->getKey())->toBe('single')
-        ->and($operator->generateResultPreview($image))->toStartWith('Image Advanced');
+    expect($image)
+        ->toBeInstanceOf(Hotspotimage::class)
+        ->and($image->getImage()->getKey())
+        ->toBe('first');
+});
+
+it('makes an advanced image of a single image', function () {
+    $image = Container::get(ImageAdvanced::class)->process(image('single'));
+
+    expect($image->getImage()->getKey())->toBe('single');
+});
+
+it('previews an advanced image', function () {
+    $operator = Container::get(ImageAdvanced::class);
+    $image = $operator->process(image('single'));
+
+    $preview = $operator->generateResultPreview($image);
+
+    expect($preview)->toStartWith('Image Advanced');
 });
 
 it('makes no advanced image without an image', function () {
-    expect(Container::get(ImageAdvanced::class)->process([]))->toBeNull();
+    $image = Container::get(ImageAdvanced::class)->process([]);
+
+    expect($image)->toBeNull();
 });
