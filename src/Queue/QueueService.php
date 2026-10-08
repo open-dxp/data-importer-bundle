@@ -73,11 +73,9 @@ class QueueService
     }
 
     /**
-     * @return mixed|null
-     *
      * @throws Exception
      */
-    protected function createQueueTableIfNotExisting(?Closure $callable = null)
+    public function createQueueTable(): void
     {
         $this->getDb()->executeQuery(sprintf('CREATE TABLE IF NOT EXISTS %s (
             id bigint AUTO_INCREMENT,
@@ -96,6 +94,16 @@ class QueueService
             KEY `bundle_index_queue_configName_index_executionType` (`configName`, `executionType`),
             KEY `bundle_index_queue_executiontype_userOwner` (`userOwner`))
         ', self::QUEUE_TABLE_NAME));
+    }
+
+    /**
+     * @return mixed|null
+     *
+     * @throws Exception
+     */
+    protected function createQueueTableIfNotExisting(?Closure $callable = null)
+    {
+        $this->createQueueTable();
 
         if ($callable) {
             return $callable();
