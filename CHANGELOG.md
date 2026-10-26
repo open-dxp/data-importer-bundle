@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+- [CHORE] Replace Codeception with Pest and `open-dxp/test-foundation`
+- [CHORE] Require `open-dxp/opendxp` ^1.5
+
 ## 1.0.1
 - [CHORE] Update branding names [#3](https://github.com/open-dxp/data-importer-bundle/pull/3)
 - [CHORE] Use requird attribute instead of annotation [#6](https://github.com/open-dxp/data-importer-bundle/pull/6)
