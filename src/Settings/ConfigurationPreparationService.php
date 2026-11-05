@@ -32,6 +32,11 @@ class ConfigurationPreparationService
     public function prepareConfiguration(string $configName, $currentConfig = null, $ignorePermissions = false)
     {
         if ($currentConfig) {
+            // A configuration sent along is an unsaved edit of a stored one. It needs the right to update that one.
+            if (!$ignorePermissions && !Dao::getByName($configName)?->isAllowed('update')) {
+                throw new AccessDeniedHttpException('Access denied');
+            }
+
             if (is_string($currentConfig)) {
                 $currentConfig = json_decode($currentConfig, true);
             }
