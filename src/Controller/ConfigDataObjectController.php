@@ -32,6 +32,7 @@ use OpenDxp\Bundle\DataImporterBundle\Preview\PreviewService;
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportPreparationService;
 use OpenDxp\Bundle\DataImporterBundle\Processing\ImportProcessingService;
 use OpenDxp\Bundle\DataImporterBundle\Settings\ConfigurationPreparationService;
+use OpenDxp\Controller\KernelControllerEventInterface;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
 use OpenDxp\Logger;
@@ -40,10 +41,11 @@ use OpenDxp\Model\DataObject\QuantityValue\Unit;
 use OpenDxp\Translation\Translator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/opendxpdataimporter/dataobject/config')]
-class ConfigDataObjectController extends UserAwareController
+class ConfigDataObjectController extends UserAwareController implements KernelControllerEventInterface
 {
     use JsonHelperTrait;
 
@@ -60,6 +62,11 @@ class ConfigDataObjectController extends UserAwareController
     public function __construct(PreviewService $previewService)
     {
         $this->previewService = $previewService;
+    }
+
+    public function onKernelControllerEvent(ControllerEvent $event): void
+    {
+        $this->checkPermission(self::CONFIG_NAME);
     }
 
     /**
