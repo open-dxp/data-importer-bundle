@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.1.1
-- [SECURITY] Every action of the import configuration checks the data hub permission. A preview with a configuration from the request needs the update permission for the stored configuration
+- [SECURITY] Every action of the import configuration checks the data hub permission. A preview with a configuration from the request needs the update permission for the stored configuration. See [OPENDXP-SA-2026-018](https://docs.opendxp.io/security/advisories/opendxp-sa-2026-018)
 - [CHORE] Check dependencies, code and commits for security issues
 
 ## 1.1.0
