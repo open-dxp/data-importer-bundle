@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.1.1
-- [SECURITY] Every action of the import configuration checks the data hub permission. A preview with a configuration from the request needs the update permission for the stored configuration (OPENDXP-SA-2026-018)
+- [SECURITY] [OPENDXP-SA-2026-018] Every action of the import configuration checks the data hub permission. A preview with a configuration from the request needs the update permission for the stored configuration
 - [CHORE] Check dependencies, code and commits for security issues
 
 ## 1.1.0
